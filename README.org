@@ -1,0 +1,16 @@
+* README
+** App definition statement
+Pre-flight Clojurescript Heroku is an app to get your organized on new
+projects using a Clojure web stack.
+** Setup
+Find and replace =yourapp= with your app's information.
+** Development
+Start a REPL.
+
+Make sure you're in =(ns user)= and evaluate =(reset)=
+** Deploying
+The application is configured for deployment to heroku.  Go ahead and
+=heroku new= then add the remote and push away.
+
+** Testing
+TBD
