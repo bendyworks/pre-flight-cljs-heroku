@@ -1,7 +1,9 @@
 (ns yourapp.system
   (:require [org.httpkit.server :refer [run-server]]
             [com.stuartsierra.component :as component]
-            [yourapp.web]))
+            [yourapp.web]
+            [environ.core :refer [env]]))
+
 (defn- start-server [handler port]
   (let [server (run-server handler {:port port})]
     (println (str "Start server on localhost:" port))
@@ -14,7 +16,7 @@
 (defrecord App []
   component/Lifecycle
   (start [this]
-    (assoc this :server (start-server #'yourapp.web/app 9009)))
+    (assoc this :server (start-server #'yourapp.web/app (Integer. (or (env :port) 9009)))))
   (stop [this]
     (stop-server (:server this))
     (dissoc this :server)))

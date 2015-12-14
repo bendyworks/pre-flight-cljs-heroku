@@ -10,9 +10,20 @@
                  [org.clojure/clojurescript "1.7.145"]
                  [http-kit "2.1.18"]
                  [compojure "1.4.0"]
-                 [com.stuartsierra/component "0.2.3"]]
-  :profiles {:dev {:plugins [[lein-cljsbuild "1.1.1-SNAPSHOT"]
-                             [lein-figwheel "0.4.1"]]
+                 [com.stuartsierra/component "0.2.3"]
+                 [environ "1.0.1"]
+                 [bk/ring-gzip "0.1.1"]]
+  :plugins [[lein-cljsbuild "1.1.1-SNAPSHOT"]]
+  :profiles {:uberjar {:source-paths ["env/prod/clj"]
+                       :hooks [leiningen.cljsbuild]
+                       :env {:production true}
+                       :aot :all
+                       :main ripple.system
+                       :cljsbuild {:builds {:app
+                                            {:source-paths ["env/prod/cljs"]
+                                             :compiler {:optimizations :advanced
+                                                        :pretty-print false}}}}}
+             :dev {:plugins [[lein-figwheel "0.4.1"]]
                    :dependencies [[reloaded.repl "0.1.0"]]
                    :source-paths ["dev"]
                    :cljsbuild {:builds [{:source-paths ["src" "dev"]
